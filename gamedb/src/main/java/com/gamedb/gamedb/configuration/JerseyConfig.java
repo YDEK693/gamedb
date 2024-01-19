@@ -1,4 +1,4 @@
-package com.gamedb.gamedb.Configuration;
+package com.gamedb.gamedb.configuration;
 
 import jakarta.ws.rs.ApplicationPath;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 public class JerseyConfig extends ResourceConfig {
 
     public JerseyConfig() {
-       /* packages("com.meunierubo.weather.controller");
-        packages("com.meunierubo.weather.filter");
-        packages("com.meunierubo.weather.exception");*/
+        packages("com.gamedb.gamedb.controller");
+       // packages("com.gamedb.gamedb.filter");
+       // packages("com.gamedb.gamedb.exception");
     }
 
 }
