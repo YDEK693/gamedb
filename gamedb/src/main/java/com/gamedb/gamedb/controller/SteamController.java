@@ -16,8 +16,16 @@ public class SteamController {
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response games(){
-        return Response.ok(steamBusiness.getGames()).build();
+    public Object games(){
+        return steamBusiness.getGames();
+    }
+
+    @Path("/steam/test")
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response gamesTest(){
+        return Response.ok(steamBusiness.getGamesTest()).build();
     }
 
 }

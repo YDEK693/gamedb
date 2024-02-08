@@ -1,5 +1,7 @@
 package com.gamedb.gamedb.repository;
 
+import com.gamedb.gamedb.dto.Response;
+import com.gamedb.gamedb.dto.SteamResponse;
 import com.gamedb.gamedb.repository.client.SteamClient;
 import jakarta.inject.Inject;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +22,10 @@ public class SteamRepository {
     private String token;
     public Object getGames(){
         return  steamClient.getGame(key, steamid);
+    }
+
+    public Response getGamesTest(){
+        return  steamClient.getGameTest(key, steamid);
     }
 
 }

@@ -1,18 +1,21 @@
 package com.gamedb.gamedb.mapper;
 
-import com.gamedb.gamedb.entity.SteamEntity;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gamedb.gamedb.dto.SteamResponse;
+
 
 public class SteamMapper {
-/*
 
-    public static SteamEntity toEntity(Object city) {
-        SteamEntity entity = new SteamEntity();
-        entity
-        entity.setName(city.getName());
-        //    entity.setPostcode(city.getPosteCode());
-        entity.setRegion(city.getRegion());
-        entity.setCountry(city.getCountry());
+      public static void toDto(String json) {
+      /*  ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            SteamResponse myObject = objectMapper.readValue(json, SteamResponse.class);
+            return myObject;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace(); // Gérer l'erreur de désérialisation
+            return null;
+        }*/
 
-        return entity;
-    }*/
+    }
 }
