@@ -8,11 +8,11 @@ import jakarta.ws.rs.core.Response;
 import org.springframework.stereotype.Controller;
 
 @Controller
-@Path("/steam")
+@Path("/games")
 public class SteamController {
     @Inject()
     private SteamBusiness steamBusiness;
-    @Path("/mygame")
+    @Path("/steam")
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
