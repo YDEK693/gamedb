@@ -2,8 +2,10 @@ package com.gamedb.gamedb.repository;
 
 import com.gamedb.gamedb.repository.client.SteamClient;
 import jakarta.inject.Inject;
-import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+
 @Controller
 public class SteamRepository {
     @Inject
