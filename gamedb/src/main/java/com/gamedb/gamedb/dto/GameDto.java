@@ -10,8 +10,15 @@ public class GameDto implements Serializable {
     @JsonProperty("name")
     protected String name = null;
 
+    @JsonProperty("imageUrl")
+    protected String imageUrl = null;
+
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

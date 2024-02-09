@@ -10,6 +10,8 @@ public class GameMapper {
     public static GameDto SteamEntityToGameDto(SteamEntity entity) {
         GameDto game = new GameDto();
         game.setName(entity.getName());
+        String img = "http://media.steampowered.com/steamcommunity/public/images/apps/"+entity.getId()+"/"+entity.getImgUrl()+".jpg";
+        game.setImageUrl(img);
         return game;
     }
 }

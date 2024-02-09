@@ -12,15 +12,21 @@ public class SteamGame implements Serializable {
     @JsonProperty("name")
     protected String name = null;
 
+    @JsonProperty("img_icon_url")
+    protected String imgIcon = null;
+
 
     @JsonGetter("appid")
     public int getId() {
         return id;
     }
-
     @JsonGetter("name")
     public String getName() {
         return name;
+    }
+    @JsonGetter("img_icon_url")
+    public String getImgIcon() {
+        return imgIcon;
     }
 
     public void setId(int idSteam) {
@@ -28,6 +34,9 @@ public class SteamGame implements Serializable {
     }
     public void setName(String name) {
         this.name = name;
+    }
+    public void setImgIcon(String imgIcon) {
+        this.imgIcon = imgIcon;
     }
 
 }

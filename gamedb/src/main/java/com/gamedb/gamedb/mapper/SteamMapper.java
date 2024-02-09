@@ -9,8 +9,8 @@ public class SteamMapper {
     public static SteamGame toDto(SteamEntity entity) {
         SteamGame dto = new SteamGame();
         dto.setId(entity.getId());
-       dto.setName(entity.getName());
-
+        dto.setName(entity.getName());
+        dto.setImgIcon(entity.getImgUrl());
         return dto;
     }
 
@@ -18,6 +18,7 @@ public class SteamMapper {
         SteamEntity entity = new SteamEntity();
         entity.setName(dto.getName());
         entity.setId(dto.getId());
+        entity.setImgUrl(dto.getImgIcon());
         return entity;
     }
 }
