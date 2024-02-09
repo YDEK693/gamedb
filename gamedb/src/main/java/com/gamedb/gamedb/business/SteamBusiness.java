@@ -1,7 +1,6 @@
 package com.gamedb.gamedb.business;
 
 
-import com.gamedb.gamedb.dto.Response;
 import com.gamedb.gamedb.dto.SteamResponse;
 import com.gamedb.gamedb.repository.SteamRepository;
 import jakarta.inject.Inject;
@@ -17,7 +16,7 @@ public class SteamBusiness {
         return steamRepository.getGames();
     }
 
-    public Response getGamesTest(){
+    public SteamResponse getGamesTest(){
         return steamRepository.getGamesTest();
     }
 
