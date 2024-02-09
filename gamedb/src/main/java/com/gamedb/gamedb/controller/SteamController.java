@@ -1,14 +1,21 @@
 package com.gamedb.gamedb.controller;
 
 import com.gamedb.gamedb.business.SteamBusiness;
+import com.gamedb.gamedb.dto.GameDto;
+import com.gamedb.gamedb.entity.SteamEntity;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.gamedb.gamedb.mapper.GameMapper.SteamEntityToGameDto;
+
 @Controller
-@Path("/games")
+@Path("/steam")
 public class SteamController {
     @Inject()
     private SteamBusiness steamBusiness;
@@ -20,12 +27,5 @@ public class SteamController {
         return steamBusiness.getGames();
     }
 
-    @Path("/steam/test")
-    @GET
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response gamesTest(){
-        return Response.ok(steamBusiness.getGamesTest()).build();
-    }
 
 }
