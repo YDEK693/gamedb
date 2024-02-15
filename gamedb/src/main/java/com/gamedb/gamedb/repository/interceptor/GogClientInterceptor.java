@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class GogClientInterceptor implements RequestInterceptor {
-    String bearer = "Bearer mOpIGGHmK3u5dDElWw-4VEaE9zCeEQInyxnWIOMrtreVeRoqPBe6bbedGyJfb9H1pnI8a8HUndD0IotxmLNrq_x5KUsw6o-nZgbuUpLZ390umDnQEtUOZ1twlNbhIx5iRUh-5zJNERgr1guBnj_LAjAsxRd1LuU-pT54di7_aZrNEkUZtonIqbLITLE8gxbN";
+    String bearer = "jEaR-gndiirww_w5FDN2LOZzOmWHYTUoYuJa5WXYu5ExflPlmbBKQYQYnMOQe2LBTto1zpE8HprFx7e0vd4kmW8TR49YgO4PjmlJ6UXLI6M9cHYvoElh2Ok9C5YKFajAQiRQ4nF6qyv2a-AL2XoZ2f4RzTVOBbH2K9v8CApxlg1H7b0YunVK6RAopHVSONFT";
     @Override
     public void apply(RequestTemplate template) {
-        template.header("Authorization ","Bearer mOpIGGHmK3u5dDElWw-4VEaE9zCeEQInyxnWIOMrtreVeRoqPBe6bbedGyJfb9H1pnI8a8HUndD0IotxmLNrq_x5KUsw6o-nZgbuUpLZ390umDnQEtUOZ1twlNbhIx5iRUh-5zJNERgr1guBnj_LAjAsxRd1LuU-pT54di7_aZrNEkUZtonIqbLITLE8gxbN");
+        template.header("Authorization","Bearer "+bearer);
         log.info("###################1 2 3 going to weather api");
     }
 }
