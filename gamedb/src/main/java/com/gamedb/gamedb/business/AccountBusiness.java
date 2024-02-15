@@ -14,8 +14,8 @@ public class AccountBusiness {
     @Inject
     private AccountRepository accountRepository;
 
-    public boolean Authenticate() {
-        return true;
+    public boolean Authenticate(String mail, String password) {
+        return accountRepository.getAccountByLogin(mail, password);
     }
     public AccountSettingsEntity getAccountSettings(int id) {
         return accountRepository.getAccountSettings(id);
