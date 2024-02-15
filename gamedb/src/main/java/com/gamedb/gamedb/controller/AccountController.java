@@ -31,6 +31,7 @@ public class AccountController {
     public Response updateAccountSettings(AccountSettings settings) {
         return null;
     }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -38,6 +39,7 @@ public class AccountController {
         this.accountBusiness.createAccount(accountMapper.toEntity(account));
         return Response.ok("Account created").build();
     }
+
     @PUT
     @AuthenticationRequired
     public Response updateAccount() {
