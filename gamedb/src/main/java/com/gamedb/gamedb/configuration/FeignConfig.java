@@ -1,6 +1,7 @@
 package com.gamedb.gamedb.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gamedb.gamedb.repository.client.GogClient;
 import com.gamedb.gamedb.repository.client.SteamClient;
 import com.gamedb.gamedb.repository.interceptor.SteamClientInterceptor;
 import feign.Feign;
@@ -19,7 +20,7 @@ public class FeignConfig {
     @Inject
     private ObjectMapper objectMapper;
     @Bean
-    SteamClient getOpenWheaterClient(){
+    SteamClient getSteamClient(){
         return Feign.builder()
                 .requestInterceptor(steamClientInterceptor)
                 .encoder(new JacksonEncoder(objectMapper))
@@ -28,6 +29,18 @@ public class FeignConfig {
                 .logger(new Logger.JavaLogger(FeignConfig.class))
                 .logLevel(Logger.Level.FULL)
                 .target(SteamClient.class,"https://api.steampowered.com/");
+    }
+
+    @Bean
+    GogClient getGogClient(){
+        return Feign.builder()
+                .requestInterceptor(steamClientInterceptor)
+                .encoder(new JacksonEncoder(objectMapper))
+                .decoder(new JacksonDecoder(objectMapper))
+                .client(new OkHttpClient())
+                .logger(new Logger.JavaLogger(FeignConfig.class))
+                .logLevel(Logger.Level.FULL)
+                .target(GogClient.class,"https://embed.gog.com//");
     }
 
     private okhttp3.OkHttpClient getOkhttpClient(){
