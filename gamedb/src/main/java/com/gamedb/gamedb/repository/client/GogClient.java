@@ -8,7 +8,7 @@ import feign.RequestLine;
 public interface GogClient {
 
     @RequestLine("GET /user/data/games")
-    GogResponse getGames();
+    Object getGames();
 
     @RequestLine("GET /account/gameDetails/{gameID}.json")
     Object getGameInfo(@Param("gameID")String gameId);

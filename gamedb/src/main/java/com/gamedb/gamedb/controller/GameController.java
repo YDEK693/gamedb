@@ -1,5 +1,6 @@
 package com.gamedb.gamedb.controller;
 
+import com.gamedb.gamedb.business.GogBusiness;
 import com.gamedb.gamedb.business.SteamBusiness;
 import com.gamedb.gamedb.dto.GameDto;
 import com.gamedb.gamedb.entity.SteamEntity;
@@ -22,6 +23,8 @@ import static com.gamedb.gamedb.mapper.GameMapper.SteamEntityToGameDto;
 public class GameController {
     @Inject()
     private SteamBusiness steamBusiness;
+    @Inject()
+    private GogBusiness gogBusiness;
     @GET
     public Response getGames() {
         String list = "[" +
@@ -49,12 +52,7 @@ public class GameController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response gogGames(){
-        List<SteamEntity> entityGames = steamBusiness.getGamesTest();
-        List<GameDto> dtoGames = new ArrayList<>();
-        for(SteamEntity game : entityGames){
-            dtoGames.add(SteamEntityToGameDto(game));
-        }
 
-        return Response.ok(dtoGames).build();
+        return Response.ok(gogBusiness.getGames()).build();
     }
 }

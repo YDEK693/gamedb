@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AccountRepository {
     public AccountEntity getAccount() {
-
+        return null;
     }
     public void createAccount(AccountEntity account) {
 
@@ -20,7 +20,7 @@ public class AccountRepository {
 
     }
     public AccountSettingsEntity getAccountSettings(int id) {
-
+    return null;
     }
     public void updateAccountSettings(AccountSettingsEntity settings) {
 

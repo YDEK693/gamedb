@@ -26,21 +26,21 @@ public class AccountController {
     @Produces(MediaType.APPLICATION_JSON)
     @AuthenticationRequired
     public Response updateAccountSettings(AccountSettings settings) {
-
+    return null;
     }
     @POST
     public Response createAccount() {
-
+        return null;
     }
     @PUT
     @AuthenticationRequired
     public Response updateAccount() {
-
+        return null;
     }
     @DELETE
     @AuthenticationRequired
     public Response deleteAccount() {
-
+        return null;
     }
 
 }

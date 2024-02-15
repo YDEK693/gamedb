@@ -3,6 +3,7 @@ package com.gamedb.gamedb.configuration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gamedb.gamedb.repository.client.GogClient;
 import com.gamedb.gamedb.repository.client.SteamClient;
+import com.gamedb.gamedb.repository.interceptor.GogClientInterceptor;
 import com.gamedb.gamedb.repository.interceptor.SteamClientInterceptor;
 import feign.Feign;
 import feign.Logger;
@@ -15,6 +16,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class FeignConfig {
+    @Inject
+    private GogClientInterceptor gogClientInterceptor;
     @Inject
     private SteamClientInterceptor steamClientInterceptor;
     @Inject
@@ -34,7 +37,7 @@ public class FeignConfig {
     @Bean
     GogClient getGogClient(){
         return Feign.builder()
-                .requestInterceptor(steamClientInterceptor)
+                .requestInterceptor(gogClientInterceptor)
                 .encoder(new JacksonEncoder(objectMapper))
                 .decoder(new JacksonDecoder(objectMapper))
                 .client(new OkHttpClient())

@@ -14,11 +14,11 @@ public class GogRepository
     @Inject
     private GogClient gogClient;
 
-    public GogResponse getGames(){
+    public Object getGames(){
         return  gogClient.getGames();
     }
 
-    public GogResponse getGame(String gameId){
+    public Object getGame(String gameId){
         return  gogClient.getGames();
     }
 
