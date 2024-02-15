@@ -10,7 +10,8 @@ public class JerseyConfig extends ResourceConfig {
 
     public JerseyConfig() {
         packages("com.gamedb.gamedb.controller");
-
+       // packages("com.gamedb.gamedb.filter");
+       // packages("com.gamedb.gamedb.exception");
     }
 
 }

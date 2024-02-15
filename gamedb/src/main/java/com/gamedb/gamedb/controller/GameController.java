@@ -34,7 +34,21 @@ public class GameController {
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response gamesTest(){
+    public Response steamGames(){
+        List<SteamEntity> entityGames = steamBusiness.getGamesTest();
+        List<GameDto> dtoGames = new ArrayList<>();
+        for(SteamEntity game : entityGames){
+            dtoGames.add(SteamEntityToGameDto(game));
+        }
+
+        return Response.ok(dtoGames).build();
+    }
+
+    @Path("/gog")
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response gogGames(){
         List<SteamEntity> entityGames = steamBusiness.getGamesTest();
         List<GameDto> dtoGames = new ArrayList<>();
         for(SteamEntity game : entityGames){
