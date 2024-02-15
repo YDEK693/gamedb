@@ -40,7 +40,7 @@ public class FeignConfig {
                 .client(new OkHttpClient())
                 .logger(new Logger.JavaLogger(FeignConfig.class))
                 .logLevel(Logger.Level.FULL)
-                .target(GogClient.class,"https://embed.gog.com//");
+                .target(GogClient.class,"https://embed.gog.com/");
     }
 
     private okhttp3.OkHttpClient getOkhttpClient(){
