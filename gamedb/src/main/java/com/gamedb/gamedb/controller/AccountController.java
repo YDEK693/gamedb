@@ -1,8 +1,10 @@
 package com.gamedb.gamedb.controller;
 
 import com.gamedb.gamedb.business.AccountBusiness;
+import com.gamedb.gamedb.dto.Account;
 import com.gamedb.gamedb.dto.AccountSettings;
 import com.gamedb.gamedb.filter.AuthenticationRequired;
+import com.gamedb.gamedb.mapper.AccountMapper;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Controller;
 public class AccountController {
     @Inject
     AccountBusiness accountBusiness;
+    AccountMapper accountMapper = new AccountMapper();
     @Path("/settings/{id}")
     @GET
     @AuthenticationRequired
@@ -26,21 +29,24 @@ public class AccountController {
     @Produces(MediaType.APPLICATION_JSON)
     @AuthenticationRequired
     public Response updateAccountSettings(AccountSettings settings) {
-
+        return null;
     }
     @POST
-    public Response createAccount() {
-
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createAccount(Account account) {
+        this.accountBusiness.createAccount(accountMapper.toEntity(account));
+        return Response.ok("Account created").build();
     }
     @PUT
     @AuthenticationRequired
     public Response updateAccount() {
-
+        return null;
     }
     @DELETE
     @AuthenticationRequired
     public Response deleteAccount() {
-
+        return null;
     }
 
 }

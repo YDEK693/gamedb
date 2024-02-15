@@ -12,7 +12,7 @@ import java.util.HashMap;
 @Component
 public class AccountRepository {
     private final static String SQL_GET_ACCOUNT = "SELECT * FROM accounts WHERE id = :id;";
-    private final static String SQL_INSERT_ACCOUNT = "INSERT INTO accounts (name, password, mail) VALUES (:name, :password, :mail);";
+    private final static String SQL_INSERT_ACCOUNT = "INSERT INTO accounts (id, name, password, mail) VALUES (DEFAULT, :name, :password, :mail);";
     private final static String SQL_UPDATE_ACCOUNT = "UPDATE accounts SET name = :name, password = :password, mail = :mail WHERE id = :id;";
     private final static String SQL_DELETE_ACCOUNT = "DELETE FROM accounts WHERE id = :id;";
     private final static String SQL_INSERT_SETTINGS =
@@ -30,6 +30,7 @@ public class AccountRepository {
     }
     public void createAccount(AccountEntity account) {
         var params = new HashMap<String, Object>();
+        params.put("id", 1);
         params.put("name", account.getName());
         params.put("password", account.getPassword());
         params.put("mail", account.getMail());
