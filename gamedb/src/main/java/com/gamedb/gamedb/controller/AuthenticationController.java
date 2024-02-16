@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @CrossOrigin(
         origins = {
-                "http://localhost:3000",
+                "*",
         },
         methods = {
                 RequestMethod.OPTIONS,
