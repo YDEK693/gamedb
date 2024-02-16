@@ -2,8 +2,8 @@ package com.gamedb.gamedb.business;
 
 import com.gamedb.gamedb.dto.GogGame;
 import com.gamedb.gamedb.dto.GogResponse;
-import com.gamedb.gamedb.dto.SteamGame;
-import com.gamedb.gamedb.entity.SteamEntity;
+
+import com.gamedb.gamedb.entity.GogEntity;
 import com.gamedb.gamedb.repository.GogRepository;
 import jakarta.inject.Inject;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.gamedb.gamedb.mapper.SteamMapper.toEntity;
+import static com.gamedb.gamedb.mapper.GogMapper.toEntity;
 
 @Component
 public class GogBusiness {
@@ -19,15 +19,15 @@ public class GogBusiness {
     @Inject()
     private GogRepository gogRepository;
 
-    public List<GogGame> getGames(){
+    public List<GogEntity> getGames(){
         GogResponse games = gogRepository.getGames();
-        List<GogGame> entityGames = new ArrayList<>();
+        List<GogEntity> entityGames = new ArrayList<>();
         for(int i : games.getResponse()){
-            //entityGames.add()
+            entityGames.add(toEntity(this.getGame(i)));
         }
-        return null;
+        return entityGames;
     }
-    public Object getGame(){
-        return gogRepository.getGames();
+    public GogGame getGame(int gameid){
+        return gogRepository.getGame(gameid);
     }
 }
