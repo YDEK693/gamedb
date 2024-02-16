@@ -3,6 +3,7 @@ package com.gamedb.gamedb.controller;
 import com.gamedb.gamedb.business.GogBusiness;
 import com.gamedb.gamedb.business.SteamBusiness;
 import com.gamedb.gamedb.dto.GameDto;
+import com.gamedb.gamedb.entity.GogEntity;
 import com.gamedb.gamedb.entity.SteamEntity;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -12,10 +13,12 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.gamedb.gamedb.mapper.GameMapper.GogEntityToGameDto;
 import static com.gamedb.gamedb.mapper.GameMapper.SteamEntityToGameDto;
 
 @Controller
@@ -53,6 +56,12 @@ public class GameController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response gogGames(){
 
-        return Response.ok(gogBusiness.getGames()).build();
+        List<GogEntity> entityGames = gogBusiness.getGames();
+        List<GameDto> dtoGames = new ArrayList<>();
+        for(GogEntity game : entityGames){
+            dtoGames.add(GogEntityToGameDto(game));
+        }
+
+        return Response.ok(dtoGames).build();
     }
 }

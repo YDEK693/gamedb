@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class GogClientInterceptor implements RequestInterceptor {
-    String bearer = "jEaR-gndiirww_w5FDN2LOZzOmWHYTUoYuJa5WXYu5ExflPlmbBKQYQYnMOQe2LBTto1zpE8HprFx7e0vd4kmW8TR49YgO4PjmlJ6UXLI6M9cHYvoElh2Ok9C5YKFajAQiRQ4nF6qyv2a-AL2XoZ2f4RzTVOBbH2K9v8CApxlg1H7b0YunVK6RAopHVSONFT";
+    String bearer = "FflPAhX3Xyh9BhGpN9aivNIWEVCvuHFG855MI3E4fC5Z804jQu11cTfcjwqS6GLGzbqSjaMKHUDs--v0hFKlhZadRPhJchhGCDoQfkeA2tpKYGEv0r6PN_cH-caeGQE-N8Gr6nhNkVt9vXkVpT9MroZejCQF7-6MflQgUpjuKDEOjR6-9JyD6LDwi2YdAfWs";
     @Override
     public void apply(RequestTemplate template) {
         template.header("Authorization","Bearer "+bearer);

@@ -1,5 +1,6 @@
 package com.gamedb.gamedb.repository.client;
 
+import com.gamedb.gamedb.dto.GogGame;
 import com.gamedb.gamedb.dto.GogResponse;
 import com.gamedb.gamedb.dto.SteamResponse;
 import feign.Headers;
@@ -9,8 +10,8 @@ import feign.RequestLine;
 public interface GogClient {
 
     @RequestLine("GET /user/data/games")
-    Object getGames();
+    GogResponse getGames();
 
     @RequestLine("GET /account/gameDetails/{gameID}.json")
-    Object getGameInfo(@Param("gameID")String gameId);
+    GogGame getGameInfo(@Param("gameID")int gameId);
 }

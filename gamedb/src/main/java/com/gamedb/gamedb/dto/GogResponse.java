@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class GogResponse implements Serializable {
     @JsonProperty("owned")
-    private GogGames owned = null;
-
+    private List<Integer> games = null;
     @JsonGetter("owned")
-    public GogGames getResponse() {
-        return owned;
+    public List<Integer> getResponse() {
+        return games;
     }
 }
