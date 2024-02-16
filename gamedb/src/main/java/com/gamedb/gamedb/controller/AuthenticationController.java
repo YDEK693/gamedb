@@ -27,7 +27,7 @@ public class AuthenticationController {
     @Inject
     private AccountBusiness accountBusiness;
     @POST
-    @Path("/login/")
+    @Path("/login")
     @CrossOrigin("http://localhost:3000")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
