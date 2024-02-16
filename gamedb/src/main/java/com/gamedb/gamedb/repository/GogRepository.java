@@ -1,7 +1,6 @@
 package com.gamedb.gamedb.repository;
 
 
-import com.gamedb.gamedb.dto.GogGames;
 import com.gamedb.gamedb.dto.GogResponse;
 import com.gamedb.gamedb.repository.client.GogClient;
 import jakarta.inject.Inject;
@@ -14,7 +13,7 @@ public class GogRepository
     @Inject
     private GogClient gogClient;
 
-    public Object getGames(){
+    public GogResponse getGames(){
         return  gogClient.getGames();
     }
 
