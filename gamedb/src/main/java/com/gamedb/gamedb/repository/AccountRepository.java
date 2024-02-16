@@ -69,7 +69,15 @@ public class AccountRepository {
     public AccountSettingsEntity getAccountSettings(int id) {
         var params = new HashMap<String, Object>();
         params.put("id", id);
-        return this.jdbcTemplate.queryForObject(SQL_GET_SETTINGS, params, AccountSettingsEntity.class);
+        List<AccountSettingsEntity> result = this.jdbcTemplate.query(SQL_GET_SETTINGS, params, (resultSet, rowNum) -> {
+            AccountSettingsEntity accountSettings = new AccountSettingsEntity();
+            accountSettings.setId(resultSet.getInt("ID"));
+            accountSettings.setSteamUser(resultSet.getString("STEAMUSER"));
+            accountSettings.setGogUser(resultSet.getString("GOGUSER"));
+            System.out.println(accountSettings);
+            return accountSettings;
+        });
+        return result.get(0);
     }
     public void updateAccountSettings(AccountSettingsEntity settings) {
         var params = new HashMap<String, Object>();
