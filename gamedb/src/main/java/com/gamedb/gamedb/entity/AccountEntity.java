@@ -1,10 +1,9 @@
 package com.gamedb.gamedb.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.Id;
+import lombok.Data;
 
-@Setter
-@Getter
+@Data
 public class AccountEntity {
 
     int id;
