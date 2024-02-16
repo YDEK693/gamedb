@@ -10,17 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@CrossOrigin(
-        origins = {
-                "*",
-        },
-        methods = {
-                RequestMethod.OPTIONS,
-                RequestMethod.GET,
-                RequestMethod.PUT,
-                RequestMethod.DELETE,
-                RequestMethod.POST
-        })
+
 @Controller
 @Path("/login")
 public class AuthenticationController {
@@ -28,7 +18,8 @@ public class AuthenticationController {
     private AccountBusiness accountBusiness;
     @POST
     @Path("/login")
-    @CrossOrigin("http://localhost:3000")
+    @CrossOrigin(origins = "http://localhost:3000") // Allow CORS from all origins
+
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response authenticate(LoginInfo login) {
