@@ -13,5 +13,5 @@ CREATE TABLE settings (
     FOREIGN KEY (id) REFERENCES accounts(id)
 );
 
-INSERT INTO accounts (name, mail, password) VALUES ('Wompus', 'dick.balls@urmum.com', '1234');
+INSERT INTO accounts (name, mail, password) VALUES ('Wompus', 'dick.balls@urmum.com', 'UnDeuxTroisQuatre');
 INSERT INTO settings (steamUser, gogUser) VALUES (null ,null);
