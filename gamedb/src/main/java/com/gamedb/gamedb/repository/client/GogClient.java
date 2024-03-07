@@ -14,14 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.Map;
 
-@Headers("Authorization: Bearer DB4JwzHN-9acb-McOwLGamteL_b04UNIKYMg5VsTvgb41Kok4kwn2KqlM-xLEFNuiDDOAgqbFoOqTyVI-r69bW068OlvbbLVzyipEA3Eteg4A3FnO5pl62n_-wLcxQA2gfolAQkpzVopCVO9w5gIojFcdZPFPnH9l2uR-j6gUbCEJlEvADB4FiIyO9G6N92b")
+@Headers("Authorization:{token}")
 public interface GogClient {
 
     @RequestLine("GET /user/data/games")
-
-
-    GogResponse getGames();
+    GogResponse getGames(@Param("token") String token);
 
     @RequestLine("GET /account/gameDetails/{gameID}.json")
-    GogGame getGameInfo(@Param("gameID")int gameId);
+    GogGame getGameInfo(@Param("token") String token, @Param("gameID")int gameId);
 }

@@ -55,8 +55,9 @@ public class GameController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response gogGames(){
-
-        List<GogEntity> entityGames = gogBusiness.getGames();
+     //  System.out.println("eeeeeeeeeeeeeeee Authorization Header: " + authorizationHeader);
+        String authorizationHeader="";
+        List<GogEntity> entityGames = gogBusiness.getGames(authorizationHeader);
         List<GameDto> dtoGames = new ArrayList<>();
         for(GogEntity game : entityGames){
             dtoGames.add(GogEntityToGameDto(game));

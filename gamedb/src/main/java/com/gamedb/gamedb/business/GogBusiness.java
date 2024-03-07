@@ -19,15 +19,15 @@ public class GogBusiness {
     @Inject()
     private GogRepository gogRepository;
 
-    public List<GogEntity> getGames(){
-        GogResponse games = gogRepository.getGames();
+    public List<GogEntity> getGames(String token){
+        GogResponse games = gogRepository.getGames(token);
         List<GogEntity> entityGames = new ArrayList<>();
         for(int i : games.getResponse()){
-            entityGames.add(toEntity(this.getGame(i)));
+            entityGames.add(toEntity(this.getGame(token, i)));
         }
         return entityGames;
     }
-    public GogGame getGame(int gameid){
-        return gogRepository.getGame(gameid);
+    public GogGame getGame(String token, int gameid){
+        return gogRepository.getGame(token, gameid);
     }
 }

@@ -17,12 +17,12 @@ public class GogRepository
     @Inject
     private GogClient gogClient;
 
-    public GogResponse getGames(){
-        return  gogClient.getGames();
+    public GogResponse getGames(String token){
+        return  gogClient.getGames(token);
     }
 
-    public GogGame getGame(int gameId){
-        return  gogClient.getGameInfo(gameId);
+    public GogGame getGame(String token, int gameId){
+        return  gogClient.getGameInfo(token, gameId);
     }
 
 }

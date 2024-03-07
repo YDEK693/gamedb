@@ -31,6 +31,7 @@ dependencyManagement {
 }
 
 dependencies {
+	implementation("javax.annotation:javax.annotation-api:1.3.2")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 	implementation("org.springframework.boot:spring-boot-starter-jersey")
