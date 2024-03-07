@@ -6,10 +6,7 @@ import com.gamedb.gamedb.dto.GameDto;
 import com.gamedb.gamedb.entity.GogEntity;
 import com.gamedb.gamedb.entity.SteamEntity;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.springframework.stereotype.Controller;
@@ -18,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.gamedb.gamedb.mapper.GameMapper.GogEntityToGameDto;
-import static com.gamedb.gamedb.mapper.GameMapper.SteamEntityToGameDto;
+import static com.gamedb.gamedb.mapper.GameMapper.*;
 
 @Controller
 @Path("/games")
@@ -36,15 +32,29 @@ public class GameController {
         return Response.ok(list).build();
     }
 
-    @Path("/steam")
+    @Path("/steam/computer")
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response steamGames(){
+    public Response steamGamesComputer(){
         List<SteamEntity> entityGames = steamBusiness.getGamesTest();
         List<GameDto> dtoGames = new ArrayList<>();
         for(SteamEntity game : entityGames){
-            dtoGames.add(SteamEntityToGameDto(game));
+            dtoGames.add(SteamEntityToGameDtoComputer(game));
+        }
+
+        return Response.ok(dtoGames).build();
+    }
+
+    @Path("/steam/mobile")
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response steamGamesMobile(){
+        List<SteamEntity> entityGames = steamBusiness.getGamesTest();
+        List<GameDto> dtoGames = new ArrayList<>();
+        for(SteamEntity game : entityGames){
+            dtoGames.add(SteamEntityToGameDtoMobile(game));
         }
 
         return Response.ok(dtoGames).build();
@@ -54,9 +64,8 @@ public class GameController {
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response gogGames(){
-     //  System.out.println("eeeeeeeeeeeeeeee Authorization Header: " + authorizationHeader);
-        String authorizationHeader="";
+    public Response gogGames(@HeaderParam("Authorization") String authorizationHeader){
+       System.out.println("eeeeeeeeeeeeeeee Authorization Header: " + authorizationHeader);
         List<GogEntity> entityGames = gogBusiness.getGames(authorizationHeader);
         List<GameDto> dtoGames = new ArrayList<>();
         for(GogEntity game : entityGames){

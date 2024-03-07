@@ -8,10 +8,18 @@ import com.gamedb.gamedb.entity.GogEntity;
 import com.gamedb.gamedb.entity.SteamEntity;
 
 public class GameMapper {
-    public static GameDto SteamEntityToGameDto(SteamEntity entity) {
+    public static GameDto SteamEntityToGameDtoMobile(SteamEntity entity) {
         GameDto game = new GameDto();
         game.setName(entity.getName());
         String img = "http://media.steampowered.com/steamcommunity/public/images/apps/"+entity.getId()+"/"+entity.getImgUrl()+".jpg";
+        game.setImageUrl(img);
+        return game;
+    }
+
+    public static GameDto SteamEntityToGameDtoComputer(SteamEntity entity) {
+        GameDto game = new GameDto();
+        game.setName(entity.getName());
+        String img =  "https://cdn.akamai.steamstatic.com/steam/apps/"+entity.getId() +"/header.jpg";
         game.setImageUrl(img);
         return game;
     }
