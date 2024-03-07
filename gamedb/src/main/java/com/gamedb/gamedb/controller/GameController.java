@@ -36,8 +36,9 @@ public class GameController {
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response steamGamesComputer(){
-        List<SteamEntity> entityGames = steamBusiness.getGamesTest();
+    public Response steamGamesComputer(@HeaderParam("Authorization") String token){
+
+        List<SteamEntity> entityGames = steamBusiness.getGames();
         List<GameDto> dtoGames = new ArrayList<>();
         for(SteamEntity game : entityGames){
             dtoGames.add(SteamEntityToGameDtoComputer(game));
@@ -51,7 +52,7 @@ public class GameController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response steamGamesMobile(){
-        List<SteamEntity> entityGames = steamBusiness.getGamesTest();
+        List<SteamEntity> entityGames = steamBusiness.getGames();
         List<GameDto> dtoGames = new ArrayList<>();
         for(SteamEntity game : entityGames){
             dtoGames.add(SteamEntityToGameDtoMobile(game));

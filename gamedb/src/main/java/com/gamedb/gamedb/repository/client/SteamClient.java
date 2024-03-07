@@ -12,5 +12,5 @@ public interface SteamClient {
     Object getGame(@Param("key")String key, @Param("steamid")String steamid);
 
     @RequestLine("GET IPlayerService/GetOwnedGames/v0001/?key={key}&steamid={steamid}&include_appinfo=true")
-    SteamResponse getGameTest(@Param("key")String key, @Param("steamid")String steamid);
+    SteamResponse getGames(@Param("key")String key, @Param("steamid")String steamid);
 }

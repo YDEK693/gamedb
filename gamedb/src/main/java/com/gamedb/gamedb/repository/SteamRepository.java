@@ -19,12 +19,10 @@ public class SteamRepository {
     private String steamid;
 
     private String token;
-    public Object getGames(){
-        return  steamClient.getGame(key, steamid);
-    }
 
-    public SteamResponse getGamesTest(){
-        return  steamClient.getGameTest(key, steamid);
+
+    public SteamResponse getGames(){
+        return  steamClient.getGames(key, steamid);
     }
 
 }
