@@ -61,13 +61,26 @@ public class GameController {
         return Response.ok(dtoGames).build();
     }
 
-    @Path("/gog")
+    @Path("/gog/mobile")
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response gogGames(@HeaderParam("Authorization") String authorizationHeader){
-       System.out.println("eeeeeeeeeeeeeeee Authorization Header: " + authorizationHeader);
-        List<GogEntity> entityGames = gogBusiness.getGames(authorizationHeader);
+    public Response gogGamesMobile(@HeaderParam("Authorization") String authorizationHeader){
+        List<GogEntity> entityGames = gogBusiness.getGamesMobile(authorizationHeader);
+        List<GameDto> dtoGames = new ArrayList<>();
+        for(GogEntity game : entityGames){
+            dtoGames.add(GogEntityToGameDto(game));
+        }
+
+        return Response.ok(dtoGames).build();
+    }
+
+    @Path("/gog/computer")
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response gogGamesComputer(@HeaderParam("Authorization") String authorizationHeader){
+        List<GogEntity> entityGames = gogBusiness.getGamesComputer(authorizationHeader);
         List<GameDto> dtoGames = new ArrayList<>();
         for(GogEntity game : entityGames){
             dtoGames.add(GogEntityToGameDto(game));

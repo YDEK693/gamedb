@@ -3,27 +3,22 @@ package com.gamedb.gamedb.repository;
 
 import com.gamedb.gamedb.dto.GogGame;
 import com.gamedb.gamedb.dto.GogResponse;
+import com.gamedb.gamedb.dto.GogResponseAPI2;
 import com.gamedb.gamedb.repository.client.GogClient;
 import com.gamedb.gamedb.repository.client.GogClientAPI2;
 import jakarta.inject.Inject;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.Map;
-
 
 @Component
-public class GogRepository
+public class GogAPI2Repository
 {
     @Inject
-    private GogClient gogClient;
+    private GogClientAPI2 gogClient;
 
-    public GogResponse getGames(String token){
-        return  gogClient.getGames(token);
-    }
 
-    public GogGame getGame(String token, int gameId){
-        return  gogClient.getGameInfo(token, gameId);
+    public GogResponseAPI2 getGame(int gameId){
+        return  gogClient.getGameInfo(gameId);
     }
 
 }

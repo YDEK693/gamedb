@@ -8,7 +8,8 @@ import lombok.Setter;
 import java.io.Serializable;
 @Setter
 public class GogGame implements Serializable {
-    @JsonProperty("backgroundImage")
+
+
     String image;
     @JsonProperty("title")
     String title;
@@ -17,9 +18,11 @@ public class GogGame implements Serializable {
         return title;
     }
 
-    @JsonGetter("backgroundImage")
+
     public String getBackgroundImage(){
         return image;
     }
+
+
 
 }
