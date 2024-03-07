@@ -22,8 +22,9 @@ public class AuthenticationController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response authenticate(LoginInfo login) {
-        if(accountBusiness.Authenticate(login.getMail(), login.getPassword())){
-            return Response.ok("{\ntoken : "+login.getPassword()+login.getMail()+"\n}").build();
+        String token = accountBusiness.Authenticate(login.getMail(), login.getPassword());
+        if(token != null) {
+            return Response.ok("{\ntoken : "+token+"\n}").build();
         } else {
             return Response.status(403).build();
         }

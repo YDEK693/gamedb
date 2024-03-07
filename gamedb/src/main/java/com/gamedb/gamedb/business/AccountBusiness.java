@@ -14,8 +14,13 @@ public class AccountBusiness {
     @Inject
     private AccountRepository accountRepository;
 
-    public boolean Authenticate(String mail, String password) {
-        return accountRepository.getAccountByLogin(mail, password);
+    public String Authenticate(String mail, String password) {
+        if(accountRepository.getAccountByLogin(mail, password)) {
+            String token = this.generateToken(mail, password;
+            accountRepository.createToken(token);
+            return token;
+        }
+        return null;
     }
     public AccountSettingsEntity getAccountSettings(int id) {
         return accountRepository.getAccountSettings(id);
@@ -31,5 +36,8 @@ public class AccountBusiness {
     }
     public void deleteAccount(int id) {
         accountRepository.deleteAccount(id);
+    }
+    public String generateToken(String a, String b) {
+        return a+b;
     }
 }
