@@ -39,7 +39,6 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("com.h2database:h2:2.2.224")
 	implementation("com.squareup.okhttp3:okhttp:4.12.0")
-	implementation("org.springframework.boot:spring-boot-starter-cache")
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 	implementation("org.springframework:spring-webmvc")
 	//feign dev

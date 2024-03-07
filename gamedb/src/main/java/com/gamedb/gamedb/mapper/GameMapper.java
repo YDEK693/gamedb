@@ -19,6 +19,7 @@ public class GameMapper {
     public static GameDto GogEntityToGameDto(GogEntity entity) {
         GameDto game = new GameDto();
         game.setName(entity.getName());
+        game.setImageUrl(entity.getImage()+".jpg");
         return game;
     }
 }

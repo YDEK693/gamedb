@@ -10,12 +10,14 @@ public class GogMapper {
     public static GogGame toDto(GogEntity entity) {
         GogGame dto = new GogGame();
         dto.setTitle(entity.getName());
+        dto.setImage(entity.getImage());
         return dto;
     }
 
     public static GogEntity toEntity(GogGame dto) {
         GogEntity entity = new GogEntity();
         entity.setName(dto.getTitle());
+        entity.setImage(dto.getBackgroundImage());
         return entity;
     }
 }

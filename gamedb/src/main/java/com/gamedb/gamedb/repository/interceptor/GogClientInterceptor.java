@@ -8,10 +8,12 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class GogClientInterceptor implements RequestInterceptor {
-    String bearer = "FflPAhX3Xyh9BhGpN9aivNIWEVCvuHFG855MI3E4fC5Z804jQu11cTfcjwqS6GLGzbqSjaMKHUDs--v0hFKlhZadRPhJchhGCDoQfkeA2tpKYGEv0r6PN_cH-caeGQE-N8Gr6nhNkVt9vXkVpT9MroZejCQF7-6MflQgUpjuKDEOjR6-9JyD6LDwi2YdAfWs";
+    String bearer = "SA30dhXZL-A5Kn9BSrxM5T-tYLxOHS6TgT_hW8bSNmwKdut9B4VxqfnNWoDnH8xUVN_bJBQL1tGEw59pto1iO-tJggyZTc9EfmbT5yvoqiR0mX6a4MJjnJk2nRcG_Qom7ESGLzeqexlzqDcYwnbGJ8OTeAkJyp-Ji2n0g6KL-S3EwSCF-1ukqCCqRom7o-Ta";
     @Override
     public void apply(RequestTemplate template) {
-        template.header("Authorization","Bearer "+bearer);
-        log.info("###################1 2 3 going to weather api");
+        log.info(template.headers().toString());
+     
+        log.info("###################1 2 3 gog");
+       // log.info(template.headers().get("Authorization").toString());
     }
 }

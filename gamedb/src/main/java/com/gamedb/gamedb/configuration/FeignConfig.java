@@ -23,6 +23,18 @@ public class FeignConfig {
     @Inject
     private ObjectMapper objectMapper;
     @Bean
+    GogClient getGogClient(){
+        return Feign.builder()
+                .requestInterceptor(gogClientInterceptor)
+                .encoder(new JacksonEncoder(objectMapper))
+                .decoder(new JacksonDecoder(objectMapper))
+                .client(new OkHttpClient())
+                .logger(new Logger.JavaLogger(FeignConfig.class))
+                .logLevel(Logger.Level.FULL)
+                .target(GogClient.class,"https://embed.gog.com/");
+    }
+
+    @Bean
     SteamClient getSteamClient(){
         return Feign.builder()
                 .requestInterceptor(steamClientInterceptor)
@@ -34,17 +46,6 @@ public class FeignConfig {
                 .target(SteamClient.class,"https://api.steampowered.com/");
     }
 
-    @Bean
-    GogClient getGogClient(){
-        return Feign.builder()
-                .requestInterceptor(gogClientInterceptor)
-                .encoder(new JacksonEncoder(objectMapper))
-                .decoder(new JacksonDecoder(objectMapper))
-                .client(new OkHttpClient())
-                .logger(new Logger.JavaLogger(FeignConfig.class))
-                .logLevel(Logger.Level.FULL)
-                .target(GogClient.class,"https://embed.gog.com/");
-    }
 
     private okhttp3.OkHttpClient getOkhttpClient(){
         var okHttpClient = new okhttp3.OkHttpClient().newBuilder();

@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @Path("/login")
+@CrossOrigin
 public class AuthenticationController {
     @Inject
     private AccountBusiness accountBusiness;
     @POST
     @Path("/login")
-    @CrossOrigin(origins = "http://localhost:3000") // Allow CORS from all origins
-
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response authenticate(LoginInfo login) {

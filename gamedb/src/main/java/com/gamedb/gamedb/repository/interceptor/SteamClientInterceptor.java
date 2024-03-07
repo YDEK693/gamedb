@@ -12,8 +12,10 @@ public class SteamClientInterceptor implements RequestInterceptor {
 
     @Override
     public void apply(RequestTemplate template) {
-        template.header("from","weather-api");
-        log.info("###################1 2 3 going to weather api");
+        log.info(template.headers().toString());
+
+        log.info("###################steam");
+        // log.info(template.headers().get("Authorization").toString());
     }
 
 

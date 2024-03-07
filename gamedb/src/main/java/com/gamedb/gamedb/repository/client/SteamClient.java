@@ -7,6 +7,7 @@ import feign.RequestLine;
 
 public interface SteamClient {
     //@Cacheable(value = "weather", key ="#cityName")
+    
     @RequestLine("GET IPlayerService/GetOwnedGames/v0001/?key={key}&steamid={steamid}&include_appinfo=true")
     Object getGame(@Param("key")String key, @Param("steamid")String steamid);
 

@@ -7,6 +7,9 @@ import com.gamedb.gamedb.repository.client.GogClient;
 import jakarta.inject.Inject;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 @Component
 public class GogRepository
