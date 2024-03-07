@@ -23,6 +23,7 @@ public class AccountRepository {
     private final static String SQL_GET_SETTINGS = "SELECT * FROM settings WHERE id = :id";
     private final static String SQL_UPDATE_SETTINGS = "UPDATE settings SET steamUser = :steamUser, gogUser = :gogUser WHERE id = :id;";
     private final static String SQL_GET_ACCOUNT_BY_LOGIN = "SELECT * FROM ACCOUNTS where mail=:mail and password=:password;";
+    private final static String SQL_INSERT_LOGIN_TOKEN = "INSERT INTO tokens (id, token) VALUES (:id, :token);" ;
     @Inject
     private NamedParameterJdbcTemplate jdbcTemplate;
     public AccountEntity getAccount(int id) {
@@ -31,7 +32,7 @@ public class AccountRepository {
         return this.jdbcTemplate.queryForObject(SQL_GET_ACCOUNT, params, AccountEntity.class);
     }
 
-    public boolean getAccountByLogin(String mail, String password) {
+    public AccountEntity getAccountByLogin(String mail, String password) {
         var params = new HashMap<String, String>();
         params.put("mail", mail);
         params.put("password", password);
@@ -43,7 +44,13 @@ public class AccountRepository {
             System.out.println(account);
             return account;
         });
-        return !(result.isEmpty());
+        if(result.size()>0){
+            return result.get(0);
+        }else{
+            return null;
+        }
+
+
     }
     public void createAccount(AccountEntity account) {
         var params = new HashMap<String, Object>();
@@ -85,5 +92,11 @@ public class AccountRepository {
         params.put("gogUser", settings.getGogUser());
         params.put("steamUser", settings.getSteamUser());
         this.jdbcTemplate.update(SQL_UPDATE_SETTINGS, params);
+    }
+    public void createToken(int id, String token) {
+        var params = new HashMap<String, Object>();
+        params.put("id", id);
+        params.put("token", token);
+        this.jdbcTemplate.update(SQL_INSERT_LOGIN_TOKEN, params);
     }
 }

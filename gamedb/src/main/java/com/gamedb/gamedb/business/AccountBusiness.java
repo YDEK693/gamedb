@@ -1,7 +1,9 @@
 package com.gamedb.gamedb.business;
 
+import com.gamedb.gamedb.dto.Account;
 import com.gamedb.gamedb.entity.AccountEntity;
 import com.gamedb.gamedb.entity.AccountSettingsEntity;
+import com.gamedb.gamedb.mapper.AccountMapper;
 import com.gamedb.gamedb.repository.AccountRepository;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
@@ -14,8 +16,16 @@ public class AccountBusiness {
     @Inject
     private AccountRepository accountRepository;
 
-    public boolean Authenticate(String mail, String password) {
-        return accountRepository.getAccountByLogin(mail, password);
+
+    public String Authenticate(String mail, String password) {
+        AccountEntity acc= accountRepository.getAccountByLogin(mail, password);
+
+        if(acc!= null) {
+            String token = this.generateToken(mail, password);
+            accountRepository.createToken(acc.getId(),token);
+            return token;
+        }
+        return null;
     }
     public AccountSettingsEntity getAccountSettings(int id) {
         return accountRepository.getAccountSettings(id);
@@ -31,5 +41,8 @@ public class AccountBusiness {
     }
     public void deleteAccount(int id) {
         accountRepository.deleteAccount(id);
+    }
+    public String generateToken(String a, String b) {
+        return a+b;
     }
 }
