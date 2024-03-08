@@ -25,7 +25,7 @@ public class AccountRepository {
     private final static String SQL_GET_ACCOUNT_BY_LOGIN = "SELECT * FROM ACCOUNTS where mail=:mail and password=:password;";
     private final static String SQL_GET_ACCOUNT_BY_TOKEN = "SELECT * FROM ACCOUNTS where mail=:mail and password=:password;";
     private final static String SQL_INSERT_LOGIN_TOKEN = "INSERT INTO tokens (id, token) VALUES (:id, :token);" ;
-    private final static String SQL_GET_ID_BY_TOKEN = "SELECT * FROM token WHERE id = :id"
+    private final static String SQL_GET_ID_BY_TOKEN = "SELECT * FROM token WHERE id = :id";
     @Inject
     private NamedParameterJdbcTemplate jdbcTemplate;
     public AccountEntity getAccount(int id) {
@@ -99,10 +99,10 @@ public class AccountRepository {
         params.put("token", token);
         this.jdbcTemplate.update(SQL_INSERT_LOGIN_TOKEN, params);
     }
-    public AcccountEntity getAccountByToken(String token) {
+    public AccountEntity getAccountByToken(String token) {
         var params = new HashMap<String, String>();
-        params.put("id", id);
-        List<AccountEntity> result = this.jdbcTemplate.query(SQL_GET_ACCOUNT_BY params, (resultSet, rowNum) -> {
+        params.put("token", token);
+        List<AccountEntity> result = this.jdbcTemplate.query(SQL_GET_ACCOUNT_BY_TOKEN, params, (resultSet, rowNum) -> {
             AccountEntity account = new AccountEntity();
             account.setId(resultSet.getInt("ID"));
             account.setName(resultSet.getString("NAME"));
@@ -126,9 +126,9 @@ public class AccountRepository {
             return account;
         });
         if(result.size()>0){
-            return result.get(0).getID();
+            return result.get(0).getId();
         }else{
-            return null;
+            return -1;
         }
     }
 }

@@ -7,11 +7,14 @@ import com.gamedb.gamedb.dto.SteamResponse;
 import com.gamedb.gamedb.entity.GogEntity;
 import com.gamedb.gamedb.entity.SteamEntity;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class GameMapper {
     public static GameDto SteamEntityToGameDtoMobile(SteamEntity entity) {
         GameDto game = new GameDto();
         game.setName(entity.getName());
-        String img = "http://media.steampowered.com/steamcommunity/public/images/apps/"+entity.getId()+"/"+entity.getImgUrl()+".jpg";
+        String img = "https://media.steampowered.com/steamcommunity/public/images/apps/"+entity.getId()+"/"+entity.getImgUrl()+".jpg";
         game.setImageUrl(img);
         return game;
     }
@@ -24,10 +27,24 @@ public class GameMapper {
         return game;
     }
 
-    public static GameDto GogEntityToGameDto(GogEntity entity) {
+    public static GameDto GogEntityToGameDtoComputer(GogEntity entity) {
         GameDto game = new GameDto();
         game.setName(entity.getName());
         game.setImageUrl(entity.getImage());
+        return game;
+    }
+
+    public static GameDto GogEntityToGameDtoMobile(GogEntity entity) {
+        GameDto game = new GameDto();
+        game.setName(entity.getName());
+        try {
+            URL url = new URL(entity.getImage());
+            URL httpsUrl = new URL("https", url.getHost(), url.getPort(), url.getFile());
+            game.setImageUrl(httpsUrl.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
         return game;
     }
 }

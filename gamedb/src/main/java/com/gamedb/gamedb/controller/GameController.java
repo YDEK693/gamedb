@@ -69,7 +69,7 @@ public class GameController {
         List<GogEntity> entityGames = gogBusiness.getGamesMobile(authorizationHeader);
         List<GameDto> dtoGames = new ArrayList<>();
         for(GogEntity game : entityGames){
-            dtoGames.add(GogEntityToGameDto(game));
+            dtoGames.add(GogEntityToGameDtoMobile(game));
         }
 
         return Response.ok(dtoGames).build();
@@ -83,7 +83,7 @@ public class GameController {
         List<GogEntity> entityGames = gogBusiness.getGamesComputer(authorizationHeader);
         List<GameDto> dtoGames = new ArrayList<>();
         for(GogEntity game : entityGames){
-            dtoGames.add(GogEntityToGameDto(game));
+            dtoGames.add(GogEntityToGameDtoComputer(game));
         }
 
         return Response.ok(dtoGames).build();
