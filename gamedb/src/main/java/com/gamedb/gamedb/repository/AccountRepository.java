@@ -23,7 +23,8 @@ public class AccountRepository {
     private final static String SQL_GET_SETTINGS = "SELECT * FROM settings WHERE id = :id";
     private final static String SQL_UPDATE_SETTINGS = "UPDATE settings SET steamUser = :steamUser, gogUser = :gogUser WHERE id = :id;";
     private final static String SQL_GET_ACCOUNT_BY_LOGIN = "SELECT * FROM ACCOUNTS where mail=:mail and password=:password;";
-    private final static String SQL_GET_ACCOUNT_BY_TOKEN = "SELECT * FROM ACCOUNTS where mail=:mail and password=:password;";
+    //private final static String SQL_GET_ACCOUNT_BY_TOKEN = "SELECT * FROM ACCOUNTS where mail=:mail and password=:password;";
+    private final static String SQL_GET_ACCOUNT_BY_ID = "SELECT * FROM ACCOUNTS where id=:id;"
     private final static String SQL_INSERT_LOGIN_TOKEN = "INSERT INTO tokens (id, token) VALUES (:id, :token);" ;
     private final static String SQL_GET_ID_BY_TOKEN = "SELECT * FROM token WHERE id = :id";
     @Inject
@@ -32,6 +33,23 @@ public class AccountRepository {
         var params = new HashMap<String, Object>();
         params.put("id", id);
         return this.jdbcTemplate.queryForObject(SQL_GET_ACCOUNT, params, AccountEntity.class);
+    }
+    public AccountEntity getAccountById(int id) {
+        var params = new HashMap<String, String>();
+        params.put("id", id);
+        System.out.println(params);
+        List<AccountEntity> result = this.jdbcTemplate.query(SQL_GET_ACCOUNT_BY_ID, params, (resultSet, rowNum) -> {
+            AccountEntity account = new AccountEntity();
+            account.setId(resultSet.getInt("ID"));
+            account.setName(resultSet.getString("NAME"));
+            System.out.println(account);
+            return account;
+        });
+        if(result.size()>0){
+            return result.get(0);
+        }else{
+            return null;
+        }
     }
 
     public AccountEntity getAccountByLogin(String mail, String password) {
@@ -99,21 +117,9 @@ public class AccountRepository {
         params.put("token", token);
         this.jdbcTemplate.update(SQL_INSERT_LOGIN_TOKEN, params);
     }
-    public AccountEntity getAccountByToken(String token) {
-        var params = new HashMap<String, String>();
-        params.put("token", token);
-        List<AccountEntity> result = this.jdbcTemplate.query(SQL_GET_ACCOUNT_BY_TOKEN, params, (resultSet, rowNum) -> {
-            AccountEntity account = new AccountEntity();
-            account.setId(resultSet.getInt("ID"));
-            account.setName(resultSet.getString("NAME"));
-            System.out.println(account);
-            return account;
-        });
-        if(result.size()>0){
-            return result.get(0);
-        }else{
-            return null;
-        }
+
+    public AcccountEntity getAccountByToken(String token) {
+        return this.getAccountById(this.getIdByToken(token));
     }
     public int getIdByToken(String token) {
         var params = new HashMap<String, String>();

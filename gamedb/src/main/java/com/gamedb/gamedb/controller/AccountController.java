@@ -19,6 +19,17 @@ public class AccountController {
     AccountBusiness accountBusiness;
     AccountMapper accountMapper = new AccountMapper();
     AccountSettingsMapper accountSettingsMapper = new AccountSettingsMapper();
+    TokenMapper tokenMapper = new TokenMapper();
+
+    @Path("/details")
+    @GET
+    @AuthenticationRequired
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAccountByToken(Token token) {
+        return Response.ok(tokenMapper.toDto(accountBusiness.getAccountByToken(token)));
+    }
+
     @Path("/settings/{id}")
     @GET
     @AuthenticationRequired

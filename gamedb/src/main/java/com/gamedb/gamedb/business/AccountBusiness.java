@@ -16,7 +16,10 @@ public class AccountBusiness {
     @Inject
     private AccountRepository accountRepository;
 
-
+    public AccountEntity getAccountByToken(Token token) {
+        AccountEntity acc = accountRepository.getAccountByToken(token.getToken());
+        return acc;
+    }
     public String Authenticate(String mail, String password) {
         AccountEntity acc= accountRepository.getAccountByLogin(mail, password);
 
