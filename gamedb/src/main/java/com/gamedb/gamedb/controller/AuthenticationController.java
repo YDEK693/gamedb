@@ -23,7 +23,7 @@ public class AuthenticationController {
     @PostMapping("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response authenticate(LoginInfo login) {
+    public Response authenticateByLogin(LoginInfo login) {
         String token = accountBusiness.Authenticate(login.getMail(), login.getPassword());
         if(token != null) {
             return Response.ok("{\ntoken : "+token+"\n}").build();

@@ -56,5 +56,4 @@ public class AccountController {
         this.accountBusiness.deleteAccount(id);
         return Response.ok().build();
     }
-
 }

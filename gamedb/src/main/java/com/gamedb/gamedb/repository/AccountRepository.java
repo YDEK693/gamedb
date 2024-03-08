@@ -23,7 +23,9 @@ public class AccountRepository {
     private final static String SQL_GET_SETTINGS = "SELECT * FROM settings WHERE id = :id";
     private final static String SQL_UPDATE_SETTINGS = "UPDATE settings SET steamUser = :steamUser, gogUser = :gogUser WHERE id = :id;";
     private final static String SQL_GET_ACCOUNT_BY_LOGIN = "SELECT * FROM ACCOUNTS where mail=:mail and password=:password;";
+    private final static String SQL_GET_ACCOUNT_BY_TOKEN = "SELECT * FROM ACCOUNTS where mail=:mail and password=:password;";
     private final static String SQL_INSERT_LOGIN_TOKEN = "INSERT INTO tokens (id, token) VALUES (:id, :token);" ;
+    private final static String SQL_GET_ID_BY_TOKEN = "SELECT * FROM token WHERE id = :id"
     @Inject
     private NamedParameterJdbcTemplate jdbcTemplate;
     public AccountEntity getAccount(int id) {
@@ -49,8 +51,6 @@ public class AccountRepository {
         }else{
             return null;
         }
-
-
     }
     public void createAccount(AccountEntity account) {
         var params = new HashMap<String, Object>();
@@ -98,5 +98,37 @@ public class AccountRepository {
         params.put("id", id);
         params.put("token", token);
         this.jdbcTemplate.update(SQL_INSERT_LOGIN_TOKEN, params);
+    }
+    public AcccountEntity getAccountByToken(String token) {
+        var params = new HashMap<String, String>();
+        params.put("id", id);
+        List<AccountEntity> result = this.jdbcTemplate.query(SQL_GET_ACCOUNT_BY params, (resultSet, rowNum) -> {
+            AccountEntity account = new AccountEntity();
+            account.setId(resultSet.getInt("ID"));
+            account.setName(resultSet.getString("NAME"));
+            System.out.println(account);
+            return account;
+        });
+        if(result.size()>0){
+            return result.get(0);
+        }else{
+            return null;
+        }
+    }
+    public int getIdByToken(String token) {
+        var params = new HashMap<String, String>();
+        params.put("token", token);
+        List<AccountEntity> result = this.jdbcTemplate.query(SQL_GET_ID_BY_TOKEN, params, (resultSet, rowNum) -> {
+            AccountEntity account = new AccountEntity();
+            account.setId(resultSet.getInt("ID"));
+            account.setName(resultSet.getString("NAME"));
+            System.out.println(account);
+            return account;
+        });
+        if(result.size()>0){
+            return result.get(0).getID();
+        }else{
+            return null;
+        }
     }
 }
