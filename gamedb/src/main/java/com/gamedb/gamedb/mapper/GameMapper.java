@@ -22,7 +22,7 @@ public class GameMapper {
     public static GameDto SteamEntityToGameDtoComputer(SteamEntity entity) {
         GameDto game = new GameDto();
         game.setName(entity.getName());
-        String img =  "https://cdn.akamai.steamstatic.com/steam/apps/"+entity.getId() +"/header.jpg";
+        String img =  "http://cdn.akamai.steamstatic.com/steam/apps/"+entity.getId() +"/header.jpg";
         game.setImageUrl(img);
         return game;
     }
