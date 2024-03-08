@@ -1,3 +1,7 @@
+package com.gamedb.gamedb.mapper;
+import com.gamedb.gamedb.dto.Token;
+import com.gamedb.gamedb.entity.TokenEntity;
+
 public class TokenMapper {
 
     public TokenEntity toEntity(Token dto) {

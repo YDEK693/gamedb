@@ -24,9 +24,9 @@ public class AccountRepository {
     private final static String SQL_UPDATE_SETTINGS = "UPDATE settings SET steamUser = :steamUser, gogUser = :gogUser WHERE id = :id;";
     private final static String SQL_GET_ACCOUNT_BY_LOGIN = "SELECT * FROM ACCOUNTS where mail=:mail and password=:password;";
     //private final static String SQL_GET_ACCOUNT_BY_TOKEN = "SELECT * FROM ACCOUNTS where mail=:mail and password=:password;";
-    private final static String SQL_GET_ACCOUNT_BY_ID = "SELECT * FROM ACCOUNTS where id=:id;"
+    private final static String SQL_GET_ACCOUNT_BY_ID = "SELECT * FROM ACCOUNTS where id=:id;";
     private final static String SQL_INSERT_LOGIN_TOKEN = "INSERT INTO tokens (id, token) VALUES (:id, :token);" ;
-    private final static String SQL_GET_ID_BY_TOKEN = "SELECT * FROM token WHERE id = :id";
+    private final static String SQL_GET_ID_BY_TOKEN = "SELECT * FROM tokens WHERE id = :id;";
     @Inject
     private NamedParameterJdbcTemplate jdbcTemplate;
     public AccountEntity getAccount(int id) {
@@ -35,7 +35,7 @@ public class AccountRepository {
         return this.jdbcTemplate.queryForObject(SQL_GET_ACCOUNT, params, AccountEntity.class);
     }
     public AccountEntity getAccountById(int id) {
-        var params = new HashMap<String, String>();
+        var params = new HashMap<String, Object>();
         params.put("id", id);
         System.out.println(params);
         List<AccountEntity> result = this.jdbcTemplate.query(SQL_GET_ACCOUNT_BY_ID, params, (resultSet, rowNum) -> {
@@ -118,7 +118,7 @@ public class AccountRepository {
         this.jdbcTemplate.update(SQL_INSERT_LOGIN_TOKEN, params);
     }
 
-    public AcccountEntity getAccountByToken(String token) {
+    public AccountEntity getAccountByToken(String token) {
         return this.getAccountById(this.getIdByToken(token));
     }
     public int getIdByToken(String token) {

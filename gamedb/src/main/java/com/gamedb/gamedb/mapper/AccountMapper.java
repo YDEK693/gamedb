@@ -13,4 +13,13 @@ public class AccountMapper {
         entity.setMail(account.getMail());
         return entity;
     }
+
+    public Object toDto(AccountEntity entity) {
+        Account dto = new Account();
+        dto.setId(entity.getId());
+        dto.setName(entity.getName());
+        dto.setPassword(entity.getPassword());
+        dto.setMail(entity.getMail());
+        return dto;
+    }
 }

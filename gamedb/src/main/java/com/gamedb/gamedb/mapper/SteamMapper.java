@@ -1,6 +1,5 @@
 package com.gamedb.gamedb.mapper;
 
-
 import com.gamedb.gamedb.dto.SteamGame;
 import com.gamedb.gamedb.entity.SteamEntity;
 

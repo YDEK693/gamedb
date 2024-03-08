@@ -3,9 +3,11 @@ package com.gamedb.gamedb.controller;
 import com.gamedb.gamedb.business.AccountBusiness;
 import com.gamedb.gamedb.dto.Account;
 import com.gamedb.gamedb.dto.AccountSettings;
+import com.gamedb.gamedb.dto.Token;
 import com.gamedb.gamedb.filter.AuthenticationRequired;
 import com.gamedb.gamedb.mapper.AccountMapper;
 import com.gamedb.gamedb.mapper.AccountSettingsMapper;
+import com.gamedb.gamedb.mapper.TokenMapper;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -27,7 +29,7 @@ public class AccountController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAccountByToken(Token token) {
-        return Response.ok(tokenMapper.toDto(accountBusiness.getAccountByToken(token)));
+        return Response.ok(accountMapper.toDto(accountBusiness.getAccountByToken(tokenMapper.toEntity(token)))).build();
     }
 
     @Path("/settings/{id}")

@@ -9,6 +9,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 import org.springframework.stereotype.Component;
 
+import com.gamedb.gamedb.entity.TokenEntity;
 import javax.naming.AuthenticationException;
 
 @Component
@@ -16,7 +17,7 @@ public class AccountBusiness {
     @Inject
     private AccountRepository accountRepository;
 
-    public AccountEntity getAccountByToken(Token token) {
+    public AccountEntity getAccountByToken(TokenEntity token) {
         AccountEntity acc = accountRepository.getAccountByToken(token.getToken());
         return acc;
     }
