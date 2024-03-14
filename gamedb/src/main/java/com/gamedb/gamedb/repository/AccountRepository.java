@@ -16,7 +16,7 @@ import java.util.List;
 @Component
 public class AccountRepository {
     private final static String SQL_GET_ACCOUNT = "SELECT * FROM accounts WHERE id = :id;";
-    private final static String SQL_INSERT_ACCOUNT = "INSERT INTO accounts (name, password, mail) VALUES (:name, :password, :mail);";
+    private final static String SQL_INSERT_ACCOUNT = "INSERT INTO accounts (name, password, mail, steamID) VALUES (:name, :password, :mail, '');";
     private final static String SQL_UPDATE_ACCOUNT = "UPDATE accounts SET name = :name, password = :password, mail = :mail WHERE id = :id;";
     private final static String SQL_DELETE_ACCOUNT = "DELETE FROM settings WHERE id = :id; DELETE FROM accounts WHERE id = :id;";
     private final static String SQL_INSERT_SETTINGS = "INSERT INTO settings (steamUser, gogUser) VALUES (null, null);";

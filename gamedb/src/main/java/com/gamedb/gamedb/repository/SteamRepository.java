@@ -15,14 +15,14 @@ public class SteamRepository {
     @Value("${spring.secrets.steam.key}")
     private String key;
 
-    @Value("${spring.secrets.steam.steamid}")
-    private String steamid;
+    //@Value("${spring.secrets.steam.steamid}")
+    //private String steamid;
 
     private String token;
 
 
-    public SteamResponse getGames(){
-        return  steamClient.getGames(key, steamid);
+    public SteamResponse getGames(String steamId){
+        return  steamClient.getGames(key, steamId);
     }
 
 }

@@ -1,10 +1,11 @@
 package com.gamedb.gamedb.controller;
 
+import com.gamedb.gamedb.business.AccountBusiness;
 import com.gamedb.gamedb.business.GogBusiness;
 import com.gamedb.gamedb.business.SteamBusiness;
 import com.gamedb.gamedb.dto.GameDto;
-import com.gamedb.gamedb.entity.GogEntity;
-import com.gamedb.gamedb.entity.SteamEntity;
+import com.gamedb.gamedb.entity.*;
+import com.gamedb.gamedb.filter.AuthenticationRequired;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -24,6 +25,8 @@ public class GameController {
     private SteamBusiness steamBusiness;
     @Inject()
     private GogBusiness gogBusiness;
+    @Inject
+    private AccountBusiness accountBusiness;
     @GET
     public Response getGames() {
         String list = "[" +
@@ -36,9 +39,17 @@ public class GameController {
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response steamGamesComputer(@HeaderParam("Authorization") String token){
+    @AuthenticationRequired
+    public Response steamGamesComputer(@HeaderParam("Authorization") String tokenApp, @QueryParam("steamId") String steamId){
+        if(steamId == null) {
+            TokenEntity token = new TokenEntity();
+            token.setToken(tokenApp);
+            AccountEntity account =  accountBusiness.getAccountByToken(token);
+            AccountSettingsEntity setting = accountBusiness.getAccountSettings(account.getId());
+            steamId = setting.getSteamUser();
+        }
 
-        List<SteamEntity> entityGames = steamBusiness.getGames();
+        List<SteamEntity> entityGames = steamBusiness.getGames(steamId);
         List<GameDto> dtoGames = new ArrayList<>();
         for(SteamEntity game : entityGames){
             dtoGames.add(SteamEntityToGameDtoComputer(game));
@@ -51,8 +62,17 @@ public class GameController {
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response steamGamesMobile(){
-        List<SteamEntity> entityGames = steamBusiness.getGames();
+    @AuthenticationRequired
+    public Response steamGamesMobile(@HeaderParam("Authorization") String tokenApp, @QueryParam("steamId") String steamId){
+        if(steamId == null) {
+            TokenEntity token = new TokenEntity();
+            token.setToken(tokenApp);
+            AccountEntity account =  accountBusiness.getAccountByToken(token);
+            AccountSettingsEntity setting = accountBusiness.getAccountSettings(account.getId());
+            steamId = setting.getSteamUser();
+        }
+
+        List<SteamEntity> entityGames = steamBusiness.getGames(steamId);
         List<GameDto> dtoGames = new ArrayList<>();
         for(SteamEntity game : entityGames){
             dtoGames.add(SteamEntityToGameDtoMobile(game));

@@ -19,8 +19,8 @@ public class SteamBusiness {
     @Inject()
     private SteamRepository steamRepository;
 
-    public List<SteamEntity> getGames(){
-        List<SteamGame> games = steamRepository.getGames().getResponse().getGames();
+    public List<SteamEntity> getGames(String steamId){
+        List<SteamGame> games = steamRepository.getGames(steamId).getResponse().getGames();
         List<SteamEntity> entityGames = new ArrayList<>();
         for(SteamGame game: games){
             entityGames.add(toEntity(game));
