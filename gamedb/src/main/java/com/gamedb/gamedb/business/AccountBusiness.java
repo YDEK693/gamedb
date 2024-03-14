@@ -1,6 +1,7 @@
 package com.gamedb.gamedb.business;
 
 import com.gamedb.gamedb.dto.Account;
+import com.gamedb.gamedb.dto.Token;
 import com.gamedb.gamedb.entity.AccountEntity;
 import com.gamedb.gamedb.entity.AccountSettingsEntity;
 import com.gamedb.gamedb.mapper.AccountMapper;
@@ -21,12 +22,12 @@ public class AccountBusiness {
         AccountEntity acc = accountRepository.getAccountByToken(token.getToken());
         return acc;
     }
-    public String Authenticate(String mail, String password) {
+    public TokenEntity Authenticate(String mail, String password) {
         AccountEntity acc= accountRepository.getAccountByLogin(mail, password);
 
         if(acc!= null) {
-            String token = this.generateToken(mail, password);
-            accountRepository.createToken(acc.getId(),token);
+            TokenEntity token = this.generateToken(mail, password);
+            accountRepository.createToken(acc.getId(),token.getToken());
             return token;
         }
         return null;
@@ -46,7 +47,9 @@ public class AccountBusiness {
     public void deleteAccount(int id) {
         accountRepository.deleteAccount(id);
     }
-    public String generateToken(String a, String b) {
-        return a+b;
+    public TokenEntity generateToken(String a, String b) {
+        TokenEntity token = new TokenEntity();
+        token.setToken(a+b);
+        return token;
     }
 }

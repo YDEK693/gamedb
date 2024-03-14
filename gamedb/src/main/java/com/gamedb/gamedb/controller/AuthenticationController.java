@@ -2,6 +2,7 @@ package com.gamedb.gamedb.controller;
 
 import com.gamedb.gamedb.business.AccountBusiness;
 import com.gamedb.gamedb.dto.LoginInfo;
+import com.gamedb.gamedb.entity.TokenEntity;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -24,7 +25,7 @@ public class AuthenticationController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response authenticateByLogin(LoginInfo login) {
-        String token = accountBusiness.Authenticate(login.getMail(), login.getPassword());
+        TokenEntity token = accountBusiness.Authenticate(login.getMail(), login.getPassword());
         if(token != null) {
             return Response.ok("{\ntoken : "+token+"\n}").build();
         } else {
