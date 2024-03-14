@@ -27,7 +27,7 @@ public class AuthenticationController {
         System.out.println("connection de"+ login.getMail());
         TokenEntity token = accountBusiness.Authenticate(login.getMail(), login.getPassword());
         if(token != null) {
-            return Response.ok("{\ntoken : "+token+"\n}").build();
+            return Response.ok("{\ntoken : "+token.getToken()+"\n}").build();
         } else {
             return Response.status(403).build();
         }
