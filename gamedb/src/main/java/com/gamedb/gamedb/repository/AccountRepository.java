@@ -25,7 +25,8 @@ public class AccountRepository {
     private final static String SQL_GET_ACCOUNT_BY_LOGIN = "SELECT * FROM ACCOUNTS where mail=:mail and password=:password;";
     //private final static String SQL_GET_ACCOUNT_BY_TOKEN = "SELECT * FROM ACCOUNTS where mail=:mail and password=:password;";
     private final static String SQL_GET_ACCOUNT_BY_ID = "SELECT * FROM ACCOUNTS where id=:id;";
-    private final static String SQL_INSERT_LOGIN_TOKEN = "INSERT INTO tokens (id, token) VALUES (:id, :token);" ;
+    //private final static String SQL_INSERT_LOGIN_TOKEN = "INSERT INTO tokens (id, loginToken) VALUES (:id, :token);" ;
+    private final static String SQL_INSERT_LOGIN_TOKEN = "Update tokens set loginToken=:token where id=:id;" ;
     private final static String SQL_GET_ID_BY_TOKEN = "SELECT * FROM tokens WHERE id = :id;";
     @Inject
     private NamedParameterJdbcTemplate jdbcTemplate;
