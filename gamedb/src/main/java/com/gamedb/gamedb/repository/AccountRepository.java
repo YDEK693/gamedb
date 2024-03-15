@@ -2,6 +2,7 @@ package com.gamedb.gamedb.repository;
 
 import com.gamedb.gamedb.entity.AccountEntity;
 import com.gamedb.gamedb.entity.AccountSettingsEntity;
+import com.gamedb.gamedb.entity.TokenEntity;
 import jakarta.inject.Inject;
 import org.h2.expression.Rownum;
 import org.springframework.jdbc.core.RowMapper;
@@ -25,9 +26,10 @@ public class AccountRepository {
     private final static String SQL_GET_ACCOUNT_BY_LOGIN = "SELECT * FROM ACCOUNTS where mail=:mail and password=:password;";
     //private final static String SQL_GET_ACCOUNT_BY_TOKEN = "SELECT * FROM ACCOUNTS where mail=:mail and password=:password;";
     private final static String SQL_GET_ACCOUNT_BY_ID = "SELECT * FROM ACCOUNTS where id=:id;";
-    //private final static String SQL_INSERT_LOGIN_TOKEN = "INSERT INTO tokens (id, loginToken) VALUES (:id, :token);" ;
+    private final static String SQL_INSERT_FIRST_LOGIN_TOKEN = "INSERT INTO tokens (id, loginToken) VALUES (:id, :token);" ;
+    private final static String SQL_GET_LOGIN_TOKEN = "SELECT * FROM tokens WHERE id =:id;" ;
     private final static String SQL_INSERT_LOGIN_TOKEN = "Update tokens set loginToken=:token where id=:id;" ;
-    private final static String SQL_GET_ID_BY_TOKEN = "SELECT * FROM tokens WHERE id = :id;";
+    private final static String SQL_GET_ID_BY_TOKEN = "SELECT * FROM tokens WHERE loginToken =:token;";
     @Inject
     private NamedParameterJdbcTemplate jdbcTemplate;
     public AccountEntity getAccount(int id) {
@@ -116,7 +118,30 @@ public class AccountRepository {
         var params = new HashMap<String, Object>();
         params.put("id", id);
         params.put("token", token);
+        this.jdbcTemplate.update(SQL_INSERT_FIRST_LOGIN_TOKEN, params);
+    }
+
+
+    public void updateToken(int id, String token) {
+        var params = new HashMap<String, Object>();
+        params.put("id", id);
+        params.put("token", token);
         this.jdbcTemplate.update(SQL_INSERT_LOGIN_TOKEN, params);
+    }
+    public boolean checkTokenExist(int id) {
+        var params = new HashMap<String,Integer>();
+        params.put("id",id);
+        List<TokenEntity> result = this.jdbcTemplate.query(SQL_GET_LOGIN_TOKEN, params, (resultSet, rowNum) -> {
+            TokenEntity token = new TokenEntity();
+
+            return token;
+        });
+        if(result.size()==1){
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
     public AccountEntity getAccountByToken(String token) {
@@ -132,10 +157,12 @@ public class AccountRepository {
             System.out.println(account);
             return account;
         });
+        System.out.println(result);
         if(result.size()>0){
             return result.get(0).getId();
         }else{
             return -1;
         }
     }
+
 }

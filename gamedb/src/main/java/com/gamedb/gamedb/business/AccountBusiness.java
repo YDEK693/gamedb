@@ -18,8 +18,8 @@ public class AccountBusiness {
     @Inject
     private AccountRepository accountRepository;
 
-    public AccountEntity getAccountByToken(TokenEntity token) {
-        AccountEntity acc = accountRepository.getAccountByToken(token.getToken());
+    public AccountEntity getAccountByToken(String token) {
+        AccountEntity acc = accountRepository.getAccountByToken(token);
         return acc;
     }
     public TokenEntity Authenticate(String mail, String password) {
@@ -27,7 +27,12 @@ public class AccountBusiness {
 
         if(acc!= null) {
             TokenEntity token = this.generateToken(mail, password);
-            accountRepository.createToken(acc.getId(),token.getToken());
+            if(accountRepository.checkTokenExist(acc.getId())){
+                accountRepository.updateToken(acc.getId(),token.getToken());
+            }else{
+                accountRepository.createToken(acc.getId(),token.getToken());
+            }
+
             return token;
         }
         return null;

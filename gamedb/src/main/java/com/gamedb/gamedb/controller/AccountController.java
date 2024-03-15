@@ -4,6 +4,7 @@ import com.gamedb.gamedb.business.AccountBusiness;
 import com.gamedb.gamedb.dto.Account;
 import com.gamedb.gamedb.dto.AccountSettings;
 import com.gamedb.gamedb.dto.Token;
+import com.gamedb.gamedb.entity.AccountEntity;
 import com.gamedb.gamedb.filter.AuthenticationRequired;
 import com.gamedb.gamedb.mapper.AccountMapper;
 import com.gamedb.gamedb.mapper.AccountSettingsMapper;
@@ -28,23 +29,26 @@ public class AccountController {
     @AuthenticationRequired
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAccountByToken(Token token) {
-        return Response.ok(accountMapper.toDto(accountBusiness.getAccountByToken(tokenMapper.toEntity(token)))).build();
+    public Response getAccountByToken(@HeaderParam("Authentication") String tokenApp) {
+        return Response.ok(accountMapper.toDto(accountBusiness.getAccountByToken(tokenApp))).build();
     }
 
-    @Path("/settings/{id}")
+    @Path("/settings/")
     @GET
     @AuthenticationRequired
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAccountSettings(@PathParam("id") int id) {
-        return Response.ok(accountSettingsMapper.toDto(accountBusiness.getAccountSettings(id))).build();
+    public Response getAccountSettings(@HeaderParam("Authentication") String tokenApp) {
+        AccountEntity acc = accountBusiness.getAccountByToken(tokenApp);
+        System.out.println("account"+acc);
+        return Response.ok(accountSettingsMapper.toDto(accountBusiness.getAccountSettings(acc.getId()))).build();
     }
     @Path("/settings")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @AuthenticationRequired
-    public Response updateAccountSettings(AccountSettings settings) {
+    public Response updateAccountSettings(@HeaderParam("Authentication") String tokenApp, AccountSettings settings) {
+        settings.setId(accountBusiness.getAccountByToken(tokenApp).getId());
         this.accountBusiness.updateAccountSettings(accountSettingsMapper.toEntity(settings));
         return Response.ok().build();
     }

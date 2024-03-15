@@ -42,9 +42,8 @@ public class GameController {
     @AuthenticationRequired
     public Response steamGamesComputer(@HeaderParam("Authorization") String tokenApp, @QueryParam("steamId") String steamId){
         if(steamId == null) {
-            TokenEntity token = new TokenEntity();
-            token.setToken(tokenApp);
-            AccountEntity account =  accountBusiness.getAccountByToken(token);
+
+            AccountEntity account =  accountBusiness.getAccountByToken(tokenApp);
             AccountSettingsEntity setting = accountBusiness.getAccountSettings(account.getId());
             steamId = setting.getSteamUser();
         }
@@ -65,9 +64,7 @@ public class GameController {
     @AuthenticationRequired
     public Response steamGamesMobile(@HeaderParam("Authorization") String tokenApp, @QueryParam("steamId") String steamId){
         if(steamId == null) {
-            TokenEntity token = new TokenEntity();
-            token.setToken(tokenApp);
-            AccountEntity account =  accountBusiness.getAccountByToken(token);
+            AccountEntity account =  accountBusiness.getAccountByToken(tokenApp);
             AccountSettingsEntity setting = accountBusiness.getAccountSettings(account.getId());
             steamId = setting.getSteamUser();
         }
