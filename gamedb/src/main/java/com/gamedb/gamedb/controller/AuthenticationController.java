@@ -26,7 +26,7 @@ public class AuthenticationController {
     public Response authenticateByLogin(LoginInfo login) {
         TokenEntity token = accountBusiness.Authenticate(login.getMail(), login.getPassword());
         if(token != null) {
-            return Response.ok("{\ntoken : "+token.getToken()+"\n}").build();
+            return Response.ok("{\"token\" : \""+token.getToken()+"\"}").build();
         } else {
             return Response.status(403).build();
         }
