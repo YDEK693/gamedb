@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### secret ###
+application.yml
+gamedb/src/main/resources/application.yml

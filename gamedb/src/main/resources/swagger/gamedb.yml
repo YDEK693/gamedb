@@ -1,0 +1,47 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: GameDb
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /games/steam:
+    get:
+      summary: Your GET endpoint
+      operationId: get-games-steam
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GameDto'
+      servers:
+        - url: 'http://localhost:8080'
+  /games/gog:
+    get:
+      summary: Your GET endpoint
+      operationId: get-games-gog
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GameDto'
+      servers:
+        - url: 'http://localhost:8080'
+components:
+  schemas:
+    GameDto:
+      type: object
+      title: GameDto
+      properties:
+        name:
+          type: string
+        plateform:
+          type: string
