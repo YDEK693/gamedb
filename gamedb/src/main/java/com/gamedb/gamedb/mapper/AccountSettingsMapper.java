@@ -6,9 +6,17 @@ import com.gamedb.gamedb.entity.AccountSettingsEntity;
 
 public class AccountSettingsMapper {
     public AccountSettings toDto(AccountSettingsEntity settings) {
-        return new AccountSettings();
+        AccountSettings acc = new AccountSettings();
+        acc.setId(settings.getId());
+        acc.setSteamUsername(settings.getSteamUser());
+        acc.setGogUsername(settings.getSteamUser());
+        return acc;
     }
     public AccountSettingsEntity toEntity(AccountSettings settings) {
-        return new AccountSettingsEntity();
+        AccountSettingsEntity acc= new AccountSettingsEntity();
+        acc.setId(settings.getId());
+        acc.setSteamUser(settings.getSteamUsername());
+        acc.setGogUser(settings.getGogUsername());
+        return acc;
     }
 }

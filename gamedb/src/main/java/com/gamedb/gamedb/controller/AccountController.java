@@ -49,6 +49,7 @@ public class AccountController {
     @AuthenticationRequired
     public Response updateAccountSettings(@HeaderParam("Authentication") String tokenApp, AccountSettings settings) {
         settings.setId(accountBusiness.getAccountByToken(tokenApp).getId());
+        System.out.println("settings put"+settings.getGogUsername()+" "+settings.getGogUsername()+" id"+settings.getId() );
         this.accountBusiness.updateAccountSettings(accountSettingsMapper.toEntity(settings));
         return Response.ok().build();
     }
