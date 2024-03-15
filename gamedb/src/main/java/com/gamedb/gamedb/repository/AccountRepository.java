@@ -20,7 +20,7 @@ public class AccountRepository {
     private final static String SQL_INSERT_ACCOUNT = "INSERT INTO accounts (name, password, mail) VALUES (:name, :password, :mail);";
     private final static String SQL_UPDATE_ACCOUNT = "UPDATE accounts SET name = :name, password = :password, mail = :mail WHERE id = :id;";
     private final static String SQL_DELETE_ACCOUNT = "DELETE FROM settings WHERE id = :id; DELETE FROM accounts WHERE id = :id;";
-    private final static String SQL_INSERT_SETTINGS = "INSERT INTO settings (id,steamUser, gogUser) VALUES (:id,null, null);";
+    private final static String SQL_INSERT_SETTINGS = "INSERT INTO settings (id,steamUser, gogUser) VALUES (:id,'vide', 'vide');";
     private final static String SQL_GET_SETTINGS = "SELECT * FROM settings WHERE id = :id";
     private final static String SQL_UPDATE_SETTINGS = "UPDATE settings SET steamUser = :steamUser, gogUser = :gogUser WHERE id = :id;";
     private final static String SQL_GET_ACCOUNT_BY_LOGIN = "SELECT * FROM ACCOUNTS where mail=:mail and password=:password;";

@@ -24,7 +24,6 @@ public class AuthenticationController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response authenticateByLogin(LoginInfo login) {
-        System.out.println("connection de"+ login.getMail());
         TokenEntity token = accountBusiness.Authenticate(login.getMail(), login.getPassword());
         if(token != null) {
             return Response.ok("{\ntoken : "+token.getToken()+"\n}").build();

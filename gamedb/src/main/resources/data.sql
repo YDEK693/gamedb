@@ -21,4 +21,4 @@ CREATE TABLE tokens (
 );
 
 INSERT INTO accounts (name, mail, password) VALUES ('Wompus', 'test@gmail.com', 'UnDeuxTroisQuatre');
-INSERT INTO settings (steamUser, gogUser) VALUES (null ,null);
+INSERT INTO settings (steamUser, gogUser) VALUES ('vide' ,'vide');

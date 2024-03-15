@@ -41,6 +41,17 @@ public class AccountBusiness {
         return accountRepository.getAccountSettings(id);
     }
     public void updateAccountSettings(AccountSettingsEntity settings) {
+        AccountSettingsEntity acc = accountRepository.getAccountSettings(settings.getId());
+        if(settings.getSteamUser()!=null && !acc.getSteamUser().equals(settings.getSteamUser())){
+
+        }else{
+            settings.setSteamUser(acc.getSteamUser());
+        }
+        if(settings.getGogUser()!=null && !acc.getGogUser().equals(settings.getGogUser())){
+
+        }else{
+            settings.setGogUser(acc.getGogUser());
+        }
         accountRepository.updateAccountSettings(settings);
     }
     public void createAccount(AccountEntity account) {
