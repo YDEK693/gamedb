@@ -29,7 +29,7 @@ public class AccountRepository {
     private final static String SQL_INSERT_FIRST_LOGIN_TOKEN = "INSERT INTO tokens (id, loginToken) VALUES (:id, :token);" ;
     private final static String SQL_GET_LOGIN_TOKEN = "SELECT * FROM tokens WHERE id =:id;" ;
     private final static String SQL_INSERT_LOGIN_TOKEN = "Update tokens set loginToken=:token where id=:id;" ;
-    private final static String SQL_GET_ID_BY_TOKEN = "SELECT * FROM tokens WHERE loginToken =:token;";
+    private final static String SQL_GET_ID_BY_TOKEN = "SELECT * FROM tokens INNER JOIN accounts ON tokens.id = accounts.id WHERE tokens.loginToken = :token";
     @Inject
     private NamedParameterJdbcTemplate jdbcTemplate;
     public AccountEntity getAccount(int id) {
@@ -150,6 +150,7 @@ public class AccountRepository {
     public int getIdByToken(String token) {
         var params = new HashMap<String, String>();
         params.put("token", token);
+        System.out.println("token" + token);
         List<AccountEntity> result = this.jdbcTemplate.query(SQL_GET_ID_BY_TOKEN, params, (resultSet, rowNum) -> {
             AccountEntity account = new AccountEntity();
             account.setId(resultSet.getInt("ID"));
@@ -157,12 +158,30 @@ public class AccountRepository {
             System.out.println(account);
             return account;
         });
-        System.out.println(result);
+        System.out.println("result" + result);
+        if (result.size() > 0) {
+            return result.get(0).getId();
+        } else {
+            return -1;
+        }
+    }
+   /* public int getIdByToken(String token) {
+        var params = new HashMap<String, String>();
+        params.put("token", token);
+        System.out.println("token"+token);
+        List<AccountEntity> result = this.jdbcTemplate.query(SQL_GET_ID_BY_TOKEN, params, (resultSet, rowNum) -> {
+            AccountEntity account = new AccountEntity();
+            account.setId(resultSet.getInt("ID"));
+            account.setName(resultSet.getString("NAME"));
+            System.out.println(account);
+            return account;
+        });
+        System.out.println("result"+result);
         if(result.size()>0){
             return result.get(0).getId();
         }else{
             return -1;
         }
-    }
+    }*/
 
 }
