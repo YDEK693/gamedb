@@ -17,10 +17,10 @@ import java.util.List;
 @Component
 public class AccountRepository {
     private final static String SQL_GET_ACCOUNT = "SELECT * FROM accounts WHERE id = :id;";
-    private final static String SQL_INSERT_ACCOUNT = "INSERT INTO accounts (name, password, mail, steamID) VALUES (:name, :password, :mail, '');";
+    private final static String SQL_INSERT_ACCOUNT = "INSERT INTO accounts (name, password, mail) VALUES (:name, :password, :mail);";
     private final static String SQL_UPDATE_ACCOUNT = "UPDATE accounts SET name = :name, password = :password, mail = :mail WHERE id = :id;";
     private final static String SQL_DELETE_ACCOUNT = "DELETE FROM settings WHERE id = :id; DELETE FROM accounts WHERE id = :id;";
-    private final static String SQL_INSERT_SETTINGS = "INSERT INTO settings (steamUser, gogUser) VALUES (null, null);";
+    private final static String SQL_INSERT_SETTINGS = "INSERT INTO settings (id,steamUser, gogUser) VALUES (:id,null, null);";
     private final static String SQL_GET_SETTINGS = "SELECT * FROM settings WHERE id = :id";
     private final static String SQL_UPDATE_SETTINGS = "UPDATE settings SET steamUser = :steamUser, gogUser = :gogUser WHERE id = :id;";
     private final static String SQL_GET_ACCOUNT_BY_LOGIN = "SELECT * FROM ACCOUNTS where mail=:mail and password=:password;";
@@ -75,11 +75,14 @@ public class AccountRepository {
     }
     public void createAccount(AccountEntity account) {
         var params = new HashMap<String, Object>();
-        params.put("id", 1);
+        params.put("id", null);
         params.put("name", account.getName());
         params.put("password", account.getPassword());
         params.put("mail", account.getMail());
         this.jdbcTemplate.update(SQL_INSERT_ACCOUNT, params);
+
+        AccountEntity countnewlycreated = this.getAccountByLogin(account.getMail(), account.getPassword());
+        params.put("id", countnewlycreated.getId());
         this.jdbcTemplate.update(SQL_INSERT_SETTINGS, params);
     }
     public void updateAccount(AccountEntity account) {
