@@ -9,7 +9,7 @@ public class AccountSettingsMapper {
         AccountSettings acc = new AccountSettings();
         acc.setId(settings.getId());
         acc.setSteamUsername(settings.getSteamUser());
-        acc.setGogUsername(settings.getSteamUser());
+        acc.setGogUsername(settings.getGogUser());
         return acc;
     }
     public AccountSettingsEntity toEntity(AccountSettings settings) {

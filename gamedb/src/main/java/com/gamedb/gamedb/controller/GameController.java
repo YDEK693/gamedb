@@ -40,7 +40,7 @@ public class GameController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @AuthenticationRequired
-    public Response steamGamesComputer(@HeaderParam("Authorization") String tokenApp, @QueryParam("steamId") String steamId){
+    public Response steamGamesComputer(@HeaderParam("Authentication") String tokenApp, @QueryParam("steamId") String steamId){
         if(steamId == null) {
 
             AccountEntity account =  accountBusiness.getAccountByToken(tokenApp);
@@ -62,7 +62,7 @@ public class GameController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @AuthenticationRequired
-    public Response steamGamesMobile(@HeaderParam("Authorization") String tokenApp, @QueryParam("steamId") String steamId){
+    public Response steamGamesMobile(@HeaderParam("Authentication") String tokenApp, @QueryParam("steamId") String steamId){
         if(steamId == null) {
             AccountEntity account =  accountBusiness.getAccountByToken(tokenApp);
             AccountSettingsEntity setting = accountBusiness.getAccountSettings(account.getId());

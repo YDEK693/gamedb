@@ -17,8 +17,9 @@ public class AuthenticationRequiredFilter implements ContainerRequestFilter {
      AccountRepository accountRepository;
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
+
         List<String> token = requestContext.getHeaders().get("Authentication");
-        if(token==null || this.accountRepository.getIdByToken(token.get(0))==-1) {
+        if(token==null || token.isEmpty() ||this.accountRepository.getIdByToken(token.get(0))==-1) {
             requestContext.abortWith(Response.status(403).build());
         }
     }
